@@ -1,0 +1,51 @@
+<app-menu></app-menu>
+
+<main>
+    <section class="home-hero">
+        <div class="hero-inner">
+            
+            
+        </div>
+    </section>
+
+    <div class="carousel-slot" (mouseenter)="stop()" (mouseleave)="start()" tabindex="0" (keydown.ArrowLeft)="prev()" (keydown.ArrowRight)="next()">
+        <ng-container *ngIf="items && items.length; else empty">
+            <img class="carousel-img" [src]="items[currentIndex].image" [alt]="items[currentIndex].title"/>
+
+            <!-- caption overlay removed (we show the active title below the carousel instead) -->
+
+            <button class="carousel-btn prev" (click)="prev()" aria-label="Previous">◀</button>
+            <button class="carousel-btn next" (click)="next()" aria-label="Next">▶</button>
+        </ng-container>
+            <ng-template #empty>
+                <div class="carousel-empty">Sem conteúdo para exibir.</div>
+            </ng-template>
+        </div>
+
+    <!-- title shown below the carousel (single visible caption) -->
+    <div id="carousel-title">
+        <ng-container *ngIf="items && items.length; else emptyTitle">
+            <ng-container *ngIf="items[currentIndex].url.startsWith('/') ; else externalLink">
+                <a [routerLink]="items[currentIndex].url">{{ items[currentIndex].title }}</a>
+            </ng-container>
+            <ng-template #externalLink>
+                <a [attr.href]="items[currentIndex].url || '#'" (click)="$event.stopPropagation()">{{ items[currentIndex].title }}</a>
+            </ng-template>
+        </ng-container>
+        <ng-template #emptyTitle>
+            <p>Sem conteúdo para exibir.</p>
+        </ng-template>
+    </div>
+
+    <!-- indicators (dots) -->
+    <div class="carousel-indicators" *ngIf="items && items.length > 1" role="tablist" aria-label="Navegação do carrossel">
+        <button *ngFor="let it of items; index as i"
+                        [class.active]="i === currentIndex"
+                        (click)="goTo(i)"
+                        [attr.aria-label]="'Ir para slide ' + (i+1)"
+                        [attr.aria-current]="i === currentIndex ? 'true' : null"
+                        class="dot" type="button"></button>
+    </div>
+</main>
+
+

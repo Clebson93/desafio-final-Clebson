@@ -1,0 +1,33 @@
+.app-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: black;
+  color: #fff;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
+  box-shadow: 0 -4px 8px rgba(0,0,0,0.12);
+}
+
+.app-footer .footer-left { display:flex; align-items:center; gap:12px }
+.app-footer .footer-left .label { font-weight:700 }
+.app-footer .social-icons { display:flex; gap:8px; align-items:center }
+.app-footer .social-icons img{ width:28px; height:28px; object-fit:contain }
+.app-footer .footer-right img{ height:40px; object-fit:contain }
+
+.footer-nome {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+}
+  
+
+@media (max-width:560px){
+  .app-footer{ flex-direction:column; gap:8px; padding:10px }
+  .app-footer .footer-right img{ height:36px }
+}
