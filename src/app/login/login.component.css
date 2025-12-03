@@ -32,7 +32,7 @@
 .login-title {
   text-align: center;
   margin: 1rem 0;
-  color: black;
+  color: rgb(17, 52, 146);
 }
 .login-form {
   display: flex;

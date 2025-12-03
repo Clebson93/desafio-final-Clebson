@@ -25,3 +25,18 @@ h2 {
 .table-primary {
   background-color: #e6f0ff !important;
 }
+
+.container-fluid{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(18, 47, 143);
+  color: #fff;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
+  box-shadow: 0 -4px 8px rgba(0,0,0,0.12);
+}

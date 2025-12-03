@@ -7,13 +7,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from '../footer/footer.component';
 // Importa "peças" necessárias para o sistema funcionar (como trazer ferramentas para uma oficina)
 
 
 // Configura o componente - diz qual HTML e CSS usar, e quais módulos importar
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, FooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

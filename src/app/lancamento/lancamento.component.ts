@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MenuComponent } from '../menu/menu.component';
+import { FooterComponent } from '../footer/footer.component';
 
 export interface Car {
   id: number;
@@ -20,7 +21,7 @@ export interface Car {
 @Component({
   selector: 'app-lancamento',
   standalone: true,
-  imports: [CommonModule, MenuComponent],
+  imports: [CommonModule, MenuComponent, FooterComponent],
   templateUrl: './lancamento.component.html',
   styleUrls: ['./lancamento.component.css']
 })
