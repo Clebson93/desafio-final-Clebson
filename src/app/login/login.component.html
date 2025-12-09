@@ -1,51 +1,83 @@
 <div class="principal">
-  <!-- Cria uma "caixa" principal que vai conter todo o conteúdo da página -->
-
-  <!-- Cria uma área para imagem com a foto de uma Ranger (provavelmente uma caminhonete) -->
-  <div class="img">
-    <img src="mustang.png" alt="" />
-  </div>
-  <!-- Cria outra "caixa" que ficará do lado direito da imagem -->
-  <div class="container-right">
-
-    <!-- Dentro da caixa direita, cria um container específico para o login -->
-    <div class="login-container">
-
-      <!-- Adiciona o logo da Ford no topo da área de login -->
-      <div class="login-logo">
-        <img src="ford.png" alt="" />
-      </div>
-
-      <!-- Cria o formulário de login e diz que quando enviar, vai executar a função "login()" -->
-      <div class="login">
-        <form action="#" class="login-form" (ngSubmit)="login()">
-
-          <!-- Coloca um título "Boas-Vindas" bem visível -->
-          <h2 class="login-title">Sejam Bem-Vindos!</h2>
-
-          <!-- Cria campo para digitar nome - o que você digitar aqui vai ser guardado na variável "nome" -->
-          <mat-form-field>
-            <mat-label>nome</mat-label>
-            <input type="text" [(ngModel)]="nome" name="nome" matInput />
-          </mat-form-field>
-
-          <!-- Cria campo para senha - os caracteres aparecem como bolinhas (****) por segurança -->
-          <mat-form-field>
-            <mat-label>Senha</mat-label>
-            <input type="password" [(ngModel)]="senha" name="senha" matInput />
-          </mat-form-field>
-
-          <!-- Cria botão "Entrar" estilizado com o design do Material Design -->
-          <button mat-fab extended>Entrar</button>
-        </form>
-      </div>
-
-      <!-- Adiciona rodapé com informações de copyright -->
-      <div class="copyright">
-        <p>&copy; Ford 2025 todos direitos reservados</p>
-      </div>
+    <div class="img">
+        <img src="mustang.png" alt="" />
     </div>
-  </div>
+
+    <div class="container-right">
+        <div class="login-container">
+            <div class="login-logo">
+                <img src="ford.png" alt="" />
+            </div>
+
+            <div class="login">
+                
+                <form 
+                    action="#" 
+                    class="login-form" 
+                    (ngSubmit)="login()" 
+                    *ngIf="isLogin" 
+                >
+                    <h2 class="login-title">Sejam Bem-Vindos!</h2>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>nome</mat-label>
+                        <input type="text" [(ngModel)]="nome" name="nome" matInput required />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Senha</mat-label>
+                        <input type="password" [(ngModel)]="senha" name="senha" matInput required />
+                    </mat-form-field>
+
+                    <button mat-fab extended color="primary">Entrar</button>
+                    
+                    <div class="switch-mode">
+                        Não tem conta? <a href="#" (click)="toggleMode(); $event.preventDefault()">**Cadastre-se aqui**</a>
+                    </div>
+                </form>
+                
+                <form 
+                    action="#" 
+                    class="login-form" 
+                    (ngSubmit)="register()" 
+                    *ngIf="!isLogin"
+                >
+                    <h2 class="login-title">Crie sua Conta</h2>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nome Completo</mat-label>
+                        <input type="text" [(ngModel)]="registro.nomeCompleto" name="nomeCompleto" matInput required />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>E-mail</mat-label>
+                        <input type="email" [(ngModel)]="registro.email" name="email" matInput required />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Crie uma Senha</mat-label>
+                        <input type="password" [(ngModel)]="registro.senha" name="senhaReg" matInput required />
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline">
+                        <mat-label>Confirme a Senha</mat-label>
+                        <input type="password" [(ngModel)]="registro.confirmacaoSenha" name="confirmacaoSenha" matInput required />
+                    </mat-form-field>
+
+                    <button mat-fab extended color="accent">Cadastrar</button>
+
+                    <div class="switch-mode">
+                        Já tem conta? <a href="#" (click)="toggleMode(); $event.preventDefault()">**Faça Login**</a>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="copyright">
+                <p>&copy; Ford 2025 todos direitos reservados</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <app-footer></app-footer>

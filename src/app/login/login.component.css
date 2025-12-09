@@ -41,3 +41,34 @@
 .copyright {
   margin: 1rem 0;
 }
+.container-right {
+  /* ... estilos existentes ... */
+  border: 5px solid rgb(226, 233, 236) !important; /* Adicione esta linha temporariamente */
+  overflow: auto; /* Garante que o conteúdo que extrapola não seja escondido */
+}
+.login {
+  border: 3px solid blue !important; /* Adicione esta linha temporariamente */
+}
+/* Estilos para os campos do Material Design */
+mat-form-field {
+  width: 100%; /* Garante que os campos de formulário ocupem 100% da largura */
+  margin-bottom: 10px; /* Espaçamento entre os campos */
+}
+
+/* Estilos para o link de alternância (Login <-> Cadastro) */
+.switch-mode {
+  text-align: center; 
+  margin-top: 15px; /* Ajuste o espaçamento superior para separar do botão */
+  font-size: 0.9rem; 
+}
+
+.switch-mode a {
+  color: rgb(17, 52, 146); 
+  text-decoration: none; 
+  cursor: pointer; 
+  font-weight: bold;
+}
+
+.switch-mode a:hover {
+  text-decoration: underline; 
+}
