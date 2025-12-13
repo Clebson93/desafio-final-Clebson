@@ -8,9 +8,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
   margin: 0;
   padding: 0;
@@ -30,9 +29,8 @@ blockquote:before, blockquote:after, q:before, q:after { content: ''; content: n
 table { border-collapse: collapse; border-spacing: 0; }
 
 /* ---------------------------------------------
-   Lancamento component layout & visual styles
-   (merged from previous .style.css and lançamento.component.css)
-   --------------------------------------------- */
+    Lancamento component layout & visual styles
+    --------------------------------------------- */
 .lancamento-root { display: block; padding: 16px 16px 40px; }
 
 .hero iframe { display: block; width: 100%; height: 420px; border-radius: 6px; border: none; }
@@ -44,7 +42,13 @@ ul.modelcars li { display: inline-block; text-align: left; width: 300px; vertica
 /* image rules were slightly different between files - keep responsive approach */
 img.photocar { display: block; width: 100%; max-width: 250px; }
 
-.checkbox { width: 30px; height: 30px; }
+/* 🚨 CORREÇÃO 1: Checkbox para Azul Claro */
+.checkbox { 
+    width: 30px; 
+    height: 30px; 
+    /* Cor Azul Claro */
+    accent-color: #0d6efd; 
+}
 
 .infocar { display: flex; align-items: center; gap: 10px; }
 .infocar div { display: inline-block; }
@@ -80,3 +84,60 @@ table.smallwide { width: 80%; margin: 2vh auto 10px; }
 
 /* small helper styles */
 .compare-message { color: #b22121; padding: 6px 0; font-weight: 600; }
+
+/* ---------------------------------------------
+    🚨 CORREÇÕES DE ESTILIZAÇÃO E ESPAÇAMENTO DOS BOTÕES (Controle principal)
+    --------------------------------------------- */
+.controls button {
+    /* Define o tamanho, padding e aparência */
+    padding: 8px 20px;
+    border: 1px solid #0d6efd; /* Borda da cor azul claro */
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+/* 🚨 CORREÇÃO 2: Estilo para o botão "Comparar Carros" (Azul Claro) */
+.btn-compare {
+    background-color: #0d6efd; /* Azul Claro */
+    color: #ffffff; /* Texto Branco */
+    margin-right: 12px; /* Espaçamento entre os botões */
+}
+
+.btn-compare:hover {
+    background-color: #0c63e4; /* Azul um pouco mais escuro no hover */
+}
+
+/* 🚨 CORREÇÃO 3: Estilo para o botão "Limpar seleção" (Branco com borda Azul Claro) */
+.btn-clear {
+    background-color: #ffffff; /* Fundo Branco */
+    color: #0d6efd; /* Texto Azul Claro */
+}
+
+.btn-clear:hover {
+    background-color: #f0f0f0;
+}
+
+/* ---------------------------------------------
+    🚨 CORREÇÃO 4: Botões "Fechar" e "Fechar e Limpar" na tabela de comparação
+    --------------------------------------------- */
+.compare-card button {
+    /* Estilos base */
+    height: 40px; 
+    width: 200px;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+
+    /* Azul Claro */
+    background-color: #0d6efd; 
+    color: #ffffff;
+    border: 1px solid #0d6efd;
+    margin-right: 8px; 
+}
+
+.compare-card button:hover {
+    background-color: #0c63e4;
+}
