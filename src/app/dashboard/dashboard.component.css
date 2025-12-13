@@ -40,3 +40,21 @@ h2 {
   z-index: 9999;
   box-shadow: 0 -4px 8px rgba(0,0,0,0.12);
 }
+
+.vehicle-image-display {
+    /* Define uma largura maior para o elemento pai (se for um container) */
+    width: 350px; 
+    /* Define uma altura maior para o elemento pai */
+    height: auto; 
+    /* Centraliza a imagem no container */
+    margin: 20px auto; 
+    display: block;
+}
+
+.vehicle-image-display img {
+    /* Garante que a imagem ocupe 100% do container e seja nítida */
+    max-width: 100%;
+    height: auto;
+    object-fit: contain; /* Garante que a imagem inteira seja visível */
+    border-radius: 8px; /* Adiciona um leve arredondamento */
+}
