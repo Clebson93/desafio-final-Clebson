@@ -1,123 +1,110 @@
 <app-menu></app-menu>
 
 <main class="lancamento-root">
+
   <section class="hero">
     <iframe
-      width="100%"
-      height="500"
-      src="https://www.youtube-nocookie.com/embed/vQsryuNmsL0?controls=0&autoplay=1&modestbranding=0&loop=1&mute=1&rel=0&hd=1"
-      title="Lançamento video"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>
+      src="https://www.youtube-nocookie.com/embed/vQsryuNmsL0?controls=0&autoplay=1&mute=1&loop=1"
+      allowfullscreen>
+    </iframe>
   </section>
 
   <section class="cars">
     <ul class="modelcars">
       <li *ngFor="let car of cars; index as i">
-        <img [src]="car.image" class="photocar" alt="{{car.model}}" />
+        <img [src]="car.image" class="photocar" />
+
         <div class="infocar">
-          <div>
-            <input
-              type="checkbox"
-              class="checkbox"
-              [checked]="isSelected(i)"
-              (change)="toggleSelection(i)"
-            />
-          </div>
+          <input class="checkbox-car" class="checkbox-car" class="checkbox-car"
+            type="checkbox"
+            class="checkbox"
+            [checked]="isSelected(i)"
+            (change)="toggleSelection(i)"
+          />
+
           <div class="info">
             <span class="textmodel">{{ car.model }}</span>
-            <span class="textprice">Preço Sugerido: {{ formatCurrency(car.price) }}</span>
-          </div>
-          <div>
-            <img src="/info.png" alt="info" />
+            <span class="textprice">{{ formatCurrency(car.price) }}</span>
           </div>
         </div>
       </li>
     </ul>
 
-    <div class="controls" style="text-align:center; padding-bottom:20px;">
-      <button type="button" class="btn-compare" (click)="showCompare()">Comparar Carros</button>
-      <button type="button" class="btn-clear" (click)="clearSelection()">Limpar seleção</button>
-      <div *ngIf="compareMessage" class="compare-message" style="margin-top:8px;color:#b00020;font-weight:600">{{ compareMessage }}</div>
+    <!-- BOTÕES SUPERIORES -->
+    <div class="controls">
+      <button
+        class="btn-compare"
+        (click)="showCompare()"
+        [disabled]="selected.length < 2">
+        Comparar
+      </button>
+
+      <button
+        class="btn-clear"
+        (click)="clearSelection()"
+        [disabled]="selected.length === 0">
+        Limpar
+      </button>
     </div>
   </section>
 
-  <section class="compare" *ngIf="compareOpen">
+  <!-- TABELA DE COMPARAÇÃO -->
+  <section class="compare" *ngIf="compareOpen && selected.length === 2">
     <div class="compare-card">
-      <h3 style="text-align:center; margin-bottom: 10px;">Comparação</h3>
+
       <table>
-        <tbody>
-          <tr>
-            <td></td>
-            <td *ngIf="selected[0] !== undefined">
-              <img [src]="cars[selected[0]].image" style="width:120px;" />
-            </td>
-            <td *ngIf="selected[1] !== undefined">
-              <img [src]="cars[selected[1]].image" style="width:120px;" />
-            </td>
-          </tr>
-          <tr>
-            <td>Modelo</td>
-            <td *ngIf="selected[0] !== undefined">{{ cars[selected[0]].model }}</td>
-            <td *ngIf="selected[1] !== undefined">{{ cars[selected[1]].model }}</td>
-          </tr>
-          <tr>
-            <td>Altura da caçamba (mm)</td>
-            <td *ngIf="selected[0] !== undefined">{{ cars[selected[0]].alturaCacamba }}</td>
-            <td *ngIf="selected[1] !== undefined">{{ cars[selected[1]].alturaCacamba }}</td>
-          </tr>
-          <tr>
-            <td>Altura do veículo (mm)</td>
-            <td *ngIf="selected[0] !== undefined">{{ cars[selected[0]].alturaVeiculo }}</td>
-            <td *ngIf="selected[1] !== undefined">{{ cars[selected[1]].alturaVeiculo }}</td>
-          </tr>
-          <tr>
-            <td>Altura livre do solo (mm)</td>
-            <td *ngIf="selected[0] !== undefined">{{ cars[selected[0]].alturaSolo }}</td>
-            <td *ngIf="selected[1] !== undefined">{{ cars[selected[1]].alturaSolo }}</td>
-          </tr>
-          <tr>
-            <td>Capacidade de carga (Kg)</td>
-            <td *ngIf="selected[0] !== undefined">{{ cars[selected[0]].capacidadeCarga }}</td>
-            <td *ngIf="selected[1] !== undefined">{{ cars[selected[1]].capacidadeCarga }}</td>
-          </tr>
-          <tr>
-            <td>Motor</td>
-            <td *ngIf="selected[0] !== undefined">{{ cars[selected[0]].motor }}</td>
-            <td *ngIf="selected[1] !== undefined">{{ cars[selected[1]].motor }}</td>
-          </tr>
-          <tr>
-            <td>Potência (cv)</td>
-            <td *ngIf="selected[0] !== undefined">{{ cars[selected[0]].potencia }}</td>
-            <td *ngIf="selected[1] !== undefined">{{ cars[selected[1]].potencia }}</td>
-          </tr>
-          <tr>
-            <td>Volume de caçamba (L)</td>
-            <td *ngIf="selected[0] !== undefined">{{ cars[selected[0]].volumeCacamba }}</td>
-            <td *ngIf="selected[1] !== undefined">{{ cars[selected[1]].volumeCacamba }}</td>
-          </tr>
-          <tr>
-            <td>Roda</td>
-            <td *ngIf="selected[0] !== undefined">{{ cars[selected[0]].roda }}</td>
-            <td *ngIf="selected[1] !== undefined">{{ cars[selected[1]].roda }}</td>
-          </tr>
-          <tr>
-            <td>Preço</td>
-            <td *ngIf="selected[0] !== undefined">{{ formatCurrency(cars[selected[0]].price) }}</td>
-            <td *ngIf="selected[1] !== undefined">{{ formatCurrency(cars[selected[1]].price) }}</td>
-          </tr>
-        </tbody>
+        <tr class="header">
+          <td></td>
+          <td>
+            <!-- ALTERAÇÃO AQUI: Envolver imagem e nome em uma div para melhor controle de layout -->
+            <div class="car-header-content">
+              <img [src]="cars[selected[0]].image">
+              <strong>{{ cars[selected[0]].model }}</strong>
+            </div>
+          </td>
+          <td>
+            <!-- ALTERAÇÃO AQUI: Envolver imagem e nome em uma div para melhor controle de layout -->
+            <div class="car-header-content">
+              <img [src]="cars[selected[1]].image">
+              <strong>{{ cars[selected[1]].model }}</strong>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Preço</td>
+          <td>{{ formatCurrency(cars[selected[0]].price) }}</td>
+          <td>{{ formatCurrency(cars[selected[1]].price) }}</td>
+        </tr>
+
+        <tr>
+          <td>Motor</td>
+          <td>{{ cars[selected[0]].motor }}</td>
+          <td>{{ cars[selected[1]].motor }}</td>
+        </tr>
+
+        <tr>
+          <td>Potência</td>
+          <td>{{ cars[selected[0]].potencia }} cv</td>
+          <td>{{ cars[selected[1]].potencia }} cv</td>
+        </tr>
+
+        <tr>
+          <td>Capacidade de carga</td>
+          <td>{{ cars[selected[0]].capacidadeCarga }} kg</td>
+          <td>{{ cars[selected[1]].capacidadeCarga }} kg</td>
+        </tr>
+
+        <tr>
+          <td>Volume da caçamba</td>
+          <td>{{ cars[selected[0]].volumeCacamba }} L</td>
+          <td>{{ cars[selected[1]].volumeCacamba }} L</td>
+        </tr>
       </table>
 
-      <div style="text-align:center; margin-top: 12px;">
-        <button (click)="hideCompare()" style="height:40px; width:200px; margin-right: 8px;">Fechar</button>
-        <button (click)="clearSelection()" style="height:40px; width:200px;">Fechar e limpar</button>
-      </div>
     </div>
   </section>
+
 </main>
 
 <app-footer></app-footer>
-<!-- Footer now rendered globally via FooterComponent -->

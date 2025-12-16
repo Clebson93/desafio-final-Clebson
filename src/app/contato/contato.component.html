@@ -1,40 +1,75 @@
 <app-menu></app-menu>
 <main>
-  <div class="forms">
-    <div>
-      <img src="xls-2-2-diesel.jpg">
-    </div>
-    <div>
-      <h2 class="titulo">Sobre Você</h2>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
-        <input type="text" formControlName="nome" placeholder="NOME*" class="fordform" required>
-        <input type="text" formControlName="email" placeholder="E-MAIL*" class="fordform" required>
-        <input type="text" formControlName="cpf" placeholder="CPF*" class="fordform" required>
-        <input type="text" formControlName="sobrenome" placeholder="SOBRENOME*" class="fordform" required>
-        <input type="text" formControlName="telefone" placeholder="TELEFONE*" class="fordform" required>
-        <select formControlName="contato" class="fordform" required>
-          <option value="TELEFONE">COMO DESEJA SER CONTATADO</option>
-          <option value="TELEFONE">TELEFONE</option>
-          <option value="E-MAIL">E-MAIL</option>
-        </select>
-
-        <div class="textosLGPD">
-          <p>Os dados serão mantidos em nossa banco de dados, só enquanto for desejado por você. A qualquer momento, será
-          possivel editar ou reomever tais dados.</p>
-
-          <div class="lgpd-row">
-            <input type="checkbox" id="aceitaLGPD" formControlName="aceitaLGPD">
-            <label for="aceitaLGPD">Sim, aceito Termos e Condições <a href="https://www.ford.com.br/politica-de-privacidade/" target="_blank" rel="noopener noreferrer">Termos e Condiçoes</a></label>
-          </div>
-
-          <div class="lgpd-row">
-            <input type="checkbox" id="aceitaPromocao" formControlName="aceitaPromocao">
-            <label for="aceitaPromocao">Sim, aceito Descontos e novidades</label>
-          </div>
-
-          <button type="submit" [disabled]="form.invalid" id="btnLGBD" class="btn-send">Enviar</button>
+    <div class="forms">
+        
+        <div class="image-container">
+            <img src="ranger.png" alt="Ranger Ford" class="car-image">
         </div>
-      </form>
+        
+        <!-- FORMULÁRIO -->
+        <div class="form-container">
+            <h2 class="titulo">Sobre Você</h2>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+                
+                <input type="text" formControlName="nome" placeholder="NOME*" class="fordform" required>
+                <div *ngIf="form.controls['nome'].invalid && (form.controls['nome'].dirty || form.controls['nome'].touched || submitted)" class="error-message">
+                    <span *ngIf="form.controls['nome'].errors?.['required']">O nome é obrigatório.</span>
+                </div>
+
+                <input type="email" formControlName="email" placeholder="E-MAIL*" class="fordform" required>
+                <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched || submitted)" class="error-message">
+                    <span *ngIf="form.controls['email'].errors?.['required']">O e-mail é obrigatório.</span>
+                    <span *ngIf="form.controls['email'].errors?.['email']">Por favor, insira um e-mail válido.</span>
+                </div>
+
+                <input type="text" formControlName="cpf" placeholder="CPF*" class="fordform" required>
+                <div *ngIf="form.controls['cpf'].invalid && (form.controls['cpf'].dirty || form.controls['cpf'].touched || submitted)" class="error-message">
+                    <span *ngIf="form.controls['cpf'].errors?.['required']">O CPF é obrigatório.</span>
+                </div>
+
+                <input type="text" formControlName="sobrenome" placeholder="SOBRENOME*" class="fordform" required>
+                <div *ngIf="form.controls['sobrenome'].invalid && (form.controls['sobrenome'].dirty || form.controls['sobrenome'].touched || submitted)" class="error-message">
+                    <span *ngIf="form.controls['sobrenome'].errors?.['required']">O sobrenome é obrigatório.</span>
+                </div>
+                
+                <input type="tel" formControlName="telefone" placeholder="TELEFONE*" class="fordform" required>
+                <div *ngIf="form.controls['telefone'].invalid && (form.controls['telefone'].dirty || form.controls['telefone'].touched || submitted)" class="error-message">
+                    <span *ngIf="form.controls['telefone'].errors?.['required']">O telefone é obrigatório.</span>
+                </div>
+
+                <select formControlName="contato" class="fordform" required>
+                    <option value="" disabled selected>COMO DESEJA SER CONTATADO</option>
+                    <option value="TELEFONE">TELEFONE</option>
+                    <option value="E-MAIL">E-MAIL</option>
+                </select>
+                <div *ngIf="form.controls['contato'].invalid && (form.controls['contato'].dirty || form.controls['contato'].touched || submitted)" class="error-message">
+                    <span *ngIf="form.controls['contato'].errors?.['required']">Por favor, selecione uma forma de contato.</span>
+                </div>
+
+                <div class="textosLGPD">
+                    <p>Os dados serão mantidos em nosso banco de dados, só enquanto for desejado por você. A qualquer momento, será possível editar ou remover tais dados.</p>
+
+                    <div class="lgpd-row">
+                        <input type="checkbox" id="aceitaLGPD" formControlName="aceitaLGPD">
+                        <label for="aceitaLGPD">
+                            Sim, aceito Termos e Condições 
+                            <a href="https://www.ford.com.br/politica-de-privacidade/" target="_blank" rel="noopener noreferrer">
+                                Termos e Condições
+                            </a>
+                        </label>
+                    </div>
+                    <div *ngIf="form.controls['aceitaLGPD'].invalid && (form.controls['aceitaLGPD'].dirty || form.controls['aceitaLGPD'].touched || submitted)" class="error-message-small">
+                        <span *ngIf="form.controls['aceitaLGPD'].errors?.['requiredTrue']">Você deve aceitar os Termos e Condições para continuar.</span>
+                    </div>
+
+                    <div class="lgpd-row">
+                        <input type="checkbox" id="aceitaPromocao" formControlName="aceitaPromocao">
+                        <label for="aceitaPromocao">Sim, aceito Descontos e novidades</label>
+                    </div>
+                </div>
+                
+                <button type="submit" [disabled]="form.invalid" id="btnLGBD" class="btn-send">Enviar</button>
+            </form>
+        </div>
     </div>
-  </div>
 </main>

@@ -1,60 +1,398 @@
+/* DASHBOARD RESPONSIVO FORD - TABELA COMO FOOTER */
+
+/* RESET E CONFIGURAÇÕES GERAIS */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+  height: 100%;
+}
+
+/* DASHBOARD CONTAINER - ESPAÇO PARA TABELA FOOTER */
 .dashboard-container {
-  /* padding-top removed - global .app-root-main provides top padding for fixed navbar */
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px 15px 320px 15px !important; /* ESPAÇO PARA TABELA NO BOTTOM */
+  background: transparent !important;
+  position: relative;
 }
 
-h2 {
-  color: #0d6efd;
-  font-weight: 700;
+/* HEADER/TÍTULO */
+h2.text-primary {
+  color: #003366 !important;
+  font-weight: 800 !important;
+  font-size: 2rem;
+  text-align: center;
+  margin: 0 0 30px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+/* CONTAINER PRINCIPAL */
+.container.text-center {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+  background: transparent;
+}
+
+/* ROW DE CARDS */
+.row.justify-content-center {
+  margin-bottom: 30px !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* CARDS - ESTILO LIMPO */
 .card {
-  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
 }
 
 .card-header {
-  background-color: #f8f9fa;
-  color: #0d6efd;
-  font-weight: 600;
-}
-
-.table-dark th {
-  background-color: #003366 !important;
+  background: linear-gradient(135deg, #003366 0%, #0056b3 100%) !important;
   color: white !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem;
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  padding: 15px 20px !important;
+  border-bottom: none;
 }
 
-.table-primary {
-  background-color: #e6f0ff !important;
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px !important;
+  background: transparent !important;
 }
 
-.container-fluid{
+/* FORM SELECT */
+.form-select {
+  border: 2px solid #003366;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: #333;
+  background: white;
+  transition: border-color 0.3s ease;
+  width: 100%;
+}
+
+.form-select:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 0 0.25rem rgba(0, 86, 179, 0.25);
+  outline: none;
+}
+
+/* CARD TITLES (VALORES) */
+.card-title {
+  font-size: 2.2rem !important;
+  font-weight: 800 !important;
+  color: #003366 !important;
+  margin-bottom: 5px !important;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #0056b3 !important;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* IMAGEM DO VEÍCULO - GRANDE */
+.text-center.mb-4 {
+  width: 100%;
+  margin: 30px 0;
+  background: transparent;
+}
+
+.img-fluid.rounded.shadow {
+  max-width: 650px !important;
+  width: 100% !important;
+  height: auto;
+  border: none !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 15px !important;
+  background: transparent !important;
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.img-fluid.rounded.shadow:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* TABELA COMO FOOTER FIXO */
+.table-footer-fixed {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgb(18, 47, 143);
-  color: #fff;
-  padding: 12px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 9999;
-  box-shadow: 0 -4px 8px rgba(0,0,0,0.12);
+  z-index: 1000;
+  background: white;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+  border-top: 3px solid #003366;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
-.vehicle-image-display {
-    /* Define uma largura maior para o elemento pai (se for um container) */
-    width: 350px; 
-    /* Define uma altura maior para o elemento pai */
-    height: auto; 
-    /* Centraliza a imagem no container */
-    margin: 20px auto; 
-    display: block;
+.table-footer-fixed .table {
+  width: 100%;
+  background: white !important;
+  border-radius: 0 !important;
+  margin-bottom: 0 !important;
+  box-shadow: none !important;
 }
 
-.vehicle-image-display img {
-    /* Garante que a imagem ocupe 100% do container e seja nítida */
-    max-width: 100%;
-    height: auto;
-    object-fit: contain; /* Garante que a imagem inteira seja visível */
-    border-radius: 8px; /* Adiciona um leve arredondamento */
+.table-footer-fixed .table-dark th {
+  background: linear-gradient(135deg, #003366 0%, #002244 100%) !important;
+  color: white !important;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 15px 10px !important;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: sticky;
+  top: 0;
+}
+
+.table-footer-fixed .table-primary {
+  background: #f8fbff !important;
+}
+
+.table-footer-fixed .table-bordered td {
+  border: 1px solid #e0e0e0 !important;
+  padding: 12px 10px !important;
+  vertical-align: middle;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* INPUT VIN NO FOOTER */
+.table-footer-fixed .form-control.border-primary {
+  border: 2px solid #003366 !important;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.table-footer-fixed .form-control.border-primary:focus {
+  border-color: #0056b3 !important;
+  box-shadow: 0 0 0 0.25rem rgba(0, 86, 179, 0.25) !important;
+  outline: none;
+}
+
+/* COLUNAS RESPONSIVAS */
+.col-md-3 {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* MEDIA QUERIES PARA TABELA FOOTER */
+
+/* TABLET (768px ou mais) */
+@media (min-width: 768px) {
+  .dashboard-container {
+    padding: 30px 25px 280px 25px !important;
+  }
+  
+  h2.text-primary {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+  }
+  
+  .row.justify-content-center {
+    gap: 25px;
+  }
+  
+  .col-md-3 {
+    flex: 0 0 calc(50% - 25px);
+    max-width: calc(50% - 25px);
+  }
+  
+  .img-fluid.rounded.shadow {
+    max-width: 700px !important;
+  }
+  
+  .card-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .table-footer-fixed {
+    max-height: 250px;
+  }
+  
+  .table-footer-fixed .table-dark th {
+    font-size: 1.2rem;
+    padding: 18px 15px !important;
+  }
+  
+  .table-footer-fixed .table-bordered td {
+    padding: 15px 12px !important;
+  }
+}
+
+/* DESKTOP (992px ou mais) */
+@media (min-width: 992px) {
+  .dashboard-container {
+    padding: 40px 30px 260px 30px !important;
+  }
+  
+  h2.text-primary {
+    font-size: 3rem;
+  }
+  
+  .col-md-3 {
+    flex: 0 0 calc(25% - 20px);
+    max-width: calc(25% - 20px);
+  }
+  
+  .img-fluid.rounded.shadow {
+    max-width: 800px !important;
+  }
+  
+  .card-title {
+    font-size: 2.8rem !important;
+  }
+  
+  .card-header {
+    font-size: 1.2rem;
+  }
+  
+  .table-footer-fixed {
+    max-height: 240px;
+  }
+}
+
+/* DESKTOP GRANDE (1200px ou mais) */
+@media (min-width: 1200px) {
+  .dashboard-container {
+    padding: 50px 40px 250px 40px !important;
+  }
+  
+  .img-fluid.rounded.shadow {
+    max-width: 900px !important;
+  }
+  
+  .card-title {
+    font-size: 3rem !important;
+  }
+}
+
+/* MOBILE PEQUENO (até 480px) */
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 15px 10px 220px 10px !important;
+  }
+  
+  h2.text-primary {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+  
+  .card {
+    min-height: 150px;
+  }
+  
+  .card-header {
+    padding: 12px 15px !important;
+    font-size: 1rem;
+  }
+  
+  .card-body {
+    padding: 15px !important;
+  }
+  
+  .card-title {
+    font-size: 1.8rem !important;
+  }
+  
+  .img-fluid.rounded.shadow {
+    max-width: 100% !important;
+    border-radius: 10px !important;
+  }
+  
+  .table-footer-fixed {
+    max-height: 200px;
+  }
+  
+  .table-footer-fixed .table-dark th {
+    padding: 10px 8px !important;
+    font-size: 0.9rem;
+  }
+  
+  .table-footer-fixed .table-bordered td {
+    padding: 8px 6px !important;
+    font-size: 0.9rem;
+  }
+  
+  .form-control.border-primary,
+  .form-select {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+}
+
+/* SCROLLBAR PERSONALIZADA PARA TABELA */
+.table-footer-fixed::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.table-footer-fixed::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.table-footer-fixed::-webkit-scrollbar-thumb {
+  background: #003366;
+  border-radius: 4px;
+}
+
+.table-footer-fixed::-webkit-scrollbar-thumb:hover {
+  background: #0056b3;
+}
+
+/* ANIMAÇÕES */
+.card, .img-fluid.rounded.shadow {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

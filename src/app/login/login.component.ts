@@ -23,16 +23,19 @@ export class LoginComponent {
   senha = '';
   dataAtual = new Date();
 
-  // === NOVO: VARIÁVEL DE CONTROLE DA TELA ===
-  isLogin: boolean = true; // TRUE = Mostra Login; FALSE = Mostra Cadastro
+  // === VARIÁVEL DE CONTROLE DA TELA ===
+  isLogin: boolean = true;
 
-  // === NOVO: OBJETO PARA O CADASTRO ===
+  // === OBJETO PARA O CADASTRO ===
   registro = {
     nomeCompleto: '',
     email: '',
     senha: '',
     confirmacaoSenha: ''
   };
+
+  // === VARIÁVEL PARA MENSAGEM DE ERRO ===
+  mensagemErro = '';
 
   constructor(private router: Router, private auth: AuthService) { }
 
@@ -43,11 +46,12 @@ export class LoginComponent {
     event.stopPropagation();
   }
 
-  // === NOVO: FUNÇÃO PARA ALTERNAR ENTRE LOGIN E CADASTRO ===
+  // === FUNÇÃO PARA ALTERNAR ENTRE LOGIN E CADASTRO ===
   toggleMode() {
     this.isLogin = !this.isLogin; 
+    this.mensagemErro = ''; // Limpa mensagem de erro
     
-    // Limpa os dados dos formulários ao trocar de tela (melhora a UX)
+    // Limpa os dados dos formulários
     this.nome = '';
     this.senha = '';
     this.registro = { nomeCompleto: '', email: '', senha: '', confirmacaoSenha: '' };
@@ -57,7 +61,7 @@ export class LoginComponent {
   login() {
     console.log('Tentativa de Login:', this.nome);
     if (this.nome !== 'admin' || this.senha !== '123456') {
-      alert('Nome ou senha Invalidos');
+      alert('Nome ou senha inválidos');
     } else {
       this.auth.login();
       this.router.navigate(['/home']);
@@ -66,39 +70,69 @@ export class LoginComponent {
 
   // === FUNÇÃO PARA TRATAR O CADASTRO ===
   register() {
-    console.log('Dados de Cadastro:', this.registro);
+    console.log('=== INICIANDO CADASTRO ===');
+    console.log('Dados recebidos:', this.registro);
+    
+    // Reset mensagem de erro
+    this.mensagemErro = '';
     
     // 1. Validação básica (campos obrigatórios)
-    if (!this.registro.nomeCompleto || !this.registro.email || !this.registro.senha || !this.registro.confirmacaoSenha) {
-         alert('Preencha todos os campos obrigatórios.');
-         return;
-    }
-
-    // 2. Validação do Caractere '@' no E-mail
-    if (!this.registro.email.includes('@')) {
-        alert('O campo E-mail deve conter o caractere "@".');
-        return;
-    }
-
-    // 3. Validação do Domínio Específico (@SynthID)
-    const requiredDomain = '@SynthID';
-    if (!this.registro.email.endsWith(requiredDomain)) {
-        alert(`O e-mail deve ser obrigatoriamente do domínio ${requiredDomain}.`);
-        return;
-    }
-    
-    // 4. Validação de Senhas
-    if (this.registro.senha !== this.registro.confirmacaoSenha) {
-      alert('A Senha e a Confirmação de Senha não coincidem.');
+    if (!this.registro.nomeCompleto?.trim() || 
+        !this.registro.email?.trim() || 
+        !this.registro.senha || 
+        !this.registro.confirmacaoSenha) {
+      this.mensagemErro = 'Preencha todos os campos obrigatórios.';
+      alert(this.mensagemErro);
       return;
     }
 
-    // ** Lógica de envio para a API viria aqui **
+    // 2. Remover espaços do e-mail
+    const emailLimpo = this.registro.email.trim();
+    console.log('E-mail limpo:', emailLimpo);
+    
+    // 3. Validação do formato básico de e-mail
+    if (!emailLimpo.includes('@')) {
+      this.mensagemErro = 'O campo E-mail deve conter o caractere "@".';
+      alert(this.mensagemErro);
+      return;
+    }
+
+    // 4. Extrair o domínio
+    const dominio = emailLimpo.substring(emailLimpo.indexOf('@'));
+    console.log('Domínio extraído:', dominio);
+    
+    // ** A VALIDAÇÃO DO DOMÍNIO @SynthID FOI REMOVIDA AQUI **
+    
+    // 6. Validação de Senhas
+    if (this.registro.senha !== this.registro.confirmacaoSenha) {
+      this.mensagemErro = 'A Senha e a Confirmação de Senha não coincidem.';
+      alert(this.mensagemErro);
+      return;
+    }
+
+    // 7. Validação de força da senha
+    if (this.registro.senha.length < 6) {
+      this.mensagemErro = 'A senha deve ter pelo menos 6 caracteres.';
+      alert(this.mensagemErro);
+      return;
+    }
+
+    // CADASTRO BEM-SUCEDIDO
+    console.log('=== CADASTRO APROVADO ===');
+    console.log('Nome:', this.registro.nomeCompleto);
+    console.log('E-mail válido:', emailLimpo);
+    console.log('Domínio válido:', dominio);
+    
+    // ** Aqui viria a lógica para enviar para a API **
     
     // Alerta de sucesso
-    alert(`Usuário ${this.registro.nomeCompleto} cadastrado com sucesso! Retornando para Login.`);
+    alert(`✅ CADASTRO REALIZADO COM SUCESSO!\n\nUsuário: ${this.registro.nomeCompleto}\nE-mail: ${emailLimpo}\n\nRedirecionando para login...`);
     
-    // LINHA QUE FAZ VOLTAR PARA A TELA DE LOGIN AUTOMATICAMENTE
-    this.toggleMode(); 
+    // Limpa o formulário
+    this.registro = { nomeCompleto: '', email: '', senha: '', confirmacaoSenha: '' };
+    
+    // Volta para o login
+    this.isLogin = true;
   }
 }
+

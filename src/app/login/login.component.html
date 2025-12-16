@@ -1,17 +1,19 @@
 <div class="principal">
     <div class="img">
-        <img src="mustang.png" alt="" />
+        <img src="ford-f-150.png" alt="Ford F-150" />
     </div>
 
     <div class="container-right">
         <div class="login-container">
             <div class="login-logo">
-                <img src="ford.png" alt="" />
+                <img src="ford.png" alt="Ford Logo" />
             </div>
 
             <div class="login">
                 
+                <!-- FORMULÁRIO DE LOGIN -->
                 <form 
+                    #loginForm="ngForm"
                     action="#" 
                     class="login-form" 
                     (ngSubmit)="login()" 
@@ -19,24 +21,50 @@
                 >
                     <h2 class="login-title">Sejam Bem-Vindos!</h2>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>nome</mat-label>
-                        <input type="text" [(ngModel)]="nome" name="nome" matInput required />
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nome</mat-label>
+                        <input 
+                            type="text" 
+                            [(ngModel)]="nome" 
+                            name="nome" 
+                            matInput 
+                            required 
+                            placeholder="Digite seu nome"
+                        />
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="fill">
                         <mat-label>Senha</mat-label>
-                        <input type="password" [(ngModel)]="senha" name="senha" matInput required />
+                        <input 
+                            [type]="hide() ? 'password' : 'text'"
+                            [(ngModel)]="senha" 
+                            name="senha" 
+                            matInput 
+                            required 
+                            placeholder="Digite sua senha"
+                        />
+                        <button mat-icon-button matSuffix type="button" (click)="hide.set(!hide())" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+                            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
                     </mat-form-field>
 
-                    <button mat-fab extended color="primary">Entrar</button>
+                    <div class="button-group">
+                        <button mat-fab extended color="primary" type="submit">
+                            Entrar
+                        </button>
+                    </div>
                     
                     <div class="switch-mode">
-                        Não tem conta? <a href="#" (click)="toggleMode(); $event.preventDefault()">Cadastre-se aqui</a>
+                        Não tem conta? 
+                        <a href="#" (click)="toggleMode(); $event.preventDefault()">
+                            Cadastre-se aqui
+                        </a>
                     </div>
                 </form>
                 
+                <!-- FORMULÁRIO DE CADASTRO -->
                 <form 
+                    #cadastroForm="ngForm"
                     action="#" 
                     class="login-form" 
                     (ngSubmit)="register()" 
@@ -44,37 +72,92 @@
                 >
                     <h2 class="login-title">Crie sua Conta</h2>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>Nome Completo</mat-label>
-                        <input type="text" [(ngModel)]="registro.nomeCompleto" name="nomeCompleto" matInput required />
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nome Completo *</mat-label>
+                        <input 
+                            type="text" 
+                            [(ngModel)]="registro.nomeCompleto" 
+                            name="nomeCompleto" 
+                            matInput 
+                            required 
+                            placeholder="Ex: João Silva"
+                        />
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>E-mail</mat-label>
-                        <input type="email" [(ngModel)]="registro.email" name="email" matInput required />
+                    <mat-form-field appearance="fill">
+                        <mat-label>E-mail *</mat-label>
+                        <input 
+                            type="email" 
+                            [(ngModel)]="registro.email" 
+                            name="email" 
+                            matInput 
+                            required 
+                            placeholder="exemplo@email.com"
+                        />
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>Crie uma Senha</mat-label>
-                        <input type="password" [(ngModel)]="registro.senha" name="senhaReg" matInput required />
+                    <mat-form-field appearance="fill">
+                        <mat-label>Crie uma Senha *</mat-label>
+                        <input 
+                            [type]="hide() ? 'password' : 'text'"
+                            [(ngModel)]="registro.senha" 
+                            name="senhaReg" 
+                            matInput 
+                            required 
+                            placeholder="Mínimo 6 caracteres"
+                        />
+                        <button mat-icon-button matSuffix type="button" (click)="hide.set(!hide())" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+                            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-hint>Mínimo 6 caracteres</mat-hint>
                     </mat-form-field>
                     
-                    <mat-form-field appearance="outline">
-                        <mat-label>Confirme a Senha</mat-label>
-                        <input type="password" [(ngModel)]="registro.confirmacaoSenha" name="confirmacaoSenha" matInput required />
+                    <mat-form-field appearance="fill">
+                        <mat-label>Confirme a Senha *</mat-label>
+                        <input 
+                            [type]="hide() ? 'password' : 'text'"
+                            [(ngModel)]="registro.confirmacaoSenha" 
+                            name="confirmacaoSenha" 
+                            matInput 
+                            required 
+                            placeholder="Digite a senha novamente"
+                        />
+                        <button mat-icon-button matSuffix type="button" (click)="hide.set(!hide())" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+                            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
                     </mat-form-field>
 
-                    <button mat-fab extended color="accent">Cadastrar</button>
+                    <!-- Mostrar mensagem de erro se houver -->
+                    <div *ngIf="mensagemErro" class="mensagem-erro" style="
+                        color: #d32f2f;
+                        background-color: #ffebee;
+                        padding: 10px;
+                        border-radius: 4px;
+                        margin-bottom: 15px;
+                        font-size: 14px;
+                        border-left: 4px solid #d32f2f;
+                    ">
+                        {{ mensagemErro }}
+                    </div>
+
+                    <div class="button-group">
+                        <button mat-fab extended color="accent" type="submit">
+                            Cadastrar
+                        </button>
+                    </div>
 
                     <div class="switch-mode">
-                        Já tem conta? <a href="#" (click)="toggleMode(); $event.preventDefault()">Faça Login</a>
+                        Já tem conta? 
+                        <a href="#" (click)="toggleMode(); $event.preventDefault()">
+                            Faça Login
+                        </a>
                     </div>
                 </form>
 
             </div>
 
             <div class="copyright">
-                <p>&copy; Ford 2025 todos direitos reservados</p>
+                <p>&copy; Ford 2025 - Todos os direitos reservados</p>
             </div>
         </div>
     </div>

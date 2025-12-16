@@ -26,6 +26,7 @@ export interface Car {
   styleUrls: ['./lancamento.component.css']
 })
 export class LancamentoComponent {
+
   cars: Car[] = [
     {
       id: 1,
@@ -73,50 +74,34 @@ export class LancamentoComponent {
 
   selected: number[] = [];
   compareOpen = false;
-  compareMessage: string | null = null;
 
   toggleSelection(idx: number) {
-    const i = this.selected.indexOf(idx);
-    if (i >= 0) {
-      this.selected.splice(i, 1);
+    const pos = this.selected.indexOf(idx);
+
+    if (pos >= 0) {
+      this.selected.splice(pos, 1);
+    } else if (this.selected.length < 2) {
+      this.selected.push(idx);
     } else {
-      if (this.selected.length < 2) this.selected.push(idx);
-      else {
-        // If already two selected, replace the second
-        this.selected[1] = idx;
-      }
+      this.selected[1] = idx;
     }
+
+    this.compareOpen = false;
   }
 
-  isSelected(idx: number) {
-    return this.selected.indexOf(idx) >= 0;
+  isSelected(idx: number): boolean {
+    return this.selected.includes(idx);
   }
 
   showCompare() {
-    // require exactly two selected items
-    if (this.selected.length < 2) {
-      this.compareMessage = 'Selecione dois carros para comparar.';
-      // clear message after a short delay
-      setTimeout(() => (this.compareMessage = null), 2500);
-      return;
+    if (this.selected.length === 2) {
+      this.compareOpen = true;
+
+      setTimeout(() => {
+        document.querySelector('.compare')
+          ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
     }
-
-    this.compareMessage = null;
-    this.compareOpen = true;
-
-    // Scroll compare card into view (use setTimeout so DOM updates first)
-    setTimeout(() => {
-      try {
-        const el = document.querySelector('.compare-card') as HTMLElement | null;
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } catch (e) {
-        // ignore environment without DOM
-      }
-    }, 0);
-  }
-
-  hideCompare() {
-    this.compareOpen = false;
   }
 
   clearSelection() {
@@ -124,7 +109,10 @@ export class LancamentoComponent {
     this.compareOpen = false;
   }
 
-  formatCurrency(value: number) {
-    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  formatCurrency(value: number): string {
+    return value.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    });
   }
 }
